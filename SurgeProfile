@@ -1,0 +1,243 @@
+[General]
+# General settings
+
+#> Enhanced Wi-Fi Assistant
+# (Try to use the data network to establish a connection when the Wi-Fi network is not good, please turn it on only when using unlimited data traffic) 
+wifi-assist = false
+
+# > Internet test URL
+internet-test-url = http://wifi.vivo.com.cn/generate_204
+# > Proxy test URL
+proxy-test-url = http://cp.cloudflare.com/generate_204
+# > Test timeout (seconds) 
+test-timeout = 5
+
+# > TLS Provider
+tls-provider = openssl
+
+# > Custom GeoIP database
+geoip-maxmind-url = https://raw.githubusercontent.com/JMVoid/ipip2mmdb/release/Country.mmdb
+
+# > IPv6 Support (closed by default)
+ipv6 = false
+
+# > Allow Wi-Fi access (iOS only, change "false" to "true" if remote access is allowed) 
+allow-wifi-access = false
+wifi-access-http-port = 6152
+wifi-access-socks5-port = 6153
+# > Allow Wi-Fi access (macOS only, if remote access is allowed, change "127.0.0.1" to "0.0.0.0")
+http-listen = 127.0.0.1:6152
+socks5-listen = 127.0.0.1:6153
+
+# > Compatibility mode (iOS only) 
+# compatibility-mode = 0
+# > Skip proxy 
+skip-proxy = 127.0.0.1, 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, 100.64.0.0/10, localhost, *.local, passenger.t3go.cn
+# > Exclude simple hostnames 
+exclude-simple-hostnames = true
+
+# > Network framwork
+network-framework = false
+
+# > DNS Server (DNS over HTTPS is not recommended if not necessary)
+dns-server = 119.29.29.29,system
+# > Read DNS records from /etc/hosts
+read-etc-hosts = true
+
+# advanced settings
+
+# > Log level
+loglevel = notify
+
+# > Return an error page when encountering the REJECT strategy
+show-error-page-for-reject = true
+
+# > Always Real IP Hosts
+always-real-ip = msftconnecttest.com, msftncsi.com, *.msftconnecttest.com, *.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.battlenet.com.cn, *.battlenet.com, *.blzstatic.cn, *.battle.net
+
+# > TCP Force HTTP Hosts
+force-http-engine-hosts = *.ott.cibntv.net,123.59.31.1,119.18.193.135,122.14.246.33,175.102.178.52
+
+# > VIF Excluded Routes
+tun-excluded-routes = 239.255.255.250/32
+
+[Replica]
+# 00 is off, 1 is on 
+# > Hide Apple requests 
+hide-apple-request = 0
+# > Hide crash tracker request
+hide-crash-reporter-request = 1
+# > Hide UDP sessions 
+hide-udp = 0
+#> Keyword Filter
+# none (close the keyword filter) / whitelist (blacklist (only record requests that contain keywords)) / blacklist (only record requests that do not contain keywords) / pattern (requests that match wildcards)# keyword-filter-type = none
+# > Key words
+# keyword-filter = (null)
+
+[Proxy]
+Direct = direct
+Reject = reject
+Tencent-US = vmess, xxx, xxx, username=xxx
+
+[Proxy Group]
+# Whitelist mode PROXY, blacklist mode DIRECT
+Final = select,Proxy,Direct
+# Proxy Select
+Proxy = select,Tencent-US
+# International streaming service
+Streaming = select,Proxy
+# Chinese streaming service (for overseas version)
+StreamingSE = select,Direct
+# Guard
+Guard = select,Reject,Direct
+# Usability automated test
+#Fallback = fallback,🇺🇸LosSantos,🇨🇳TheHub,url = http://www.gstatic.com/generate_204
+# Delayed automatic testing
+#AutoTest = url-test,🇺🇸LosSantos,🇭🇰Sandbox,url = http://www.gstatic.com/generate_204
+# Subscription
+#Name = select, policy-path=https://duckduckgo.security/user/sub.php?token=DivineEngine
+
+[Rule]
+# https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Extra/Apple/BlockiOSUpdate.list,Reject
+
+# Client
+# > Proxy
+PROCESS-NAME,v2ray,Direct
+PROCESS-NAME,ss-local,Direct
+PROCESS-NAME,UUBooster,Direct
+# > Download
+PROCESS-NAME,aria2c,Direct
+PROCESS-NAME,fdm,Direct
+PROCESS-NAME,Folx,Direct
+PROCESS-NAME,NetTransport,Direct
+PROCESS-NAME,Thunder,Direct
+PROCESS-NAME,Transmission,Direct
+PROCESS-NAME,uTorrent,Direct
+PROCESS-NAME,WebTorrent,Direct
+PROCESS-NAME,WebTorrent Helper,Direct
+
+# Unbreak
+RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Unbreak.list,Direct
+
+# Advertising
+RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Guard/Advertising.list,Guard
+
+# Privacy
+# RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Guard/Privacy.list,Guard
+
+# Hijacking
+RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Guard/Hijacking.list,Guard
+
+# Streaming
+RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/StreamingMedia/Streaming.list,Proxy
+
+# StreamingSE
+RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/StreamingMedia/StreamingSE.list,Direct
+
+# Apple
+RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Extra/Apple/AppStoreConnect.list,Proxy
+
+# Global 
+RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Global.list,Proxy
+
+# China
+RULE-SET,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/China.list,Direct
+
+# Local Area Network
+RULE-SET,LAN,Direct
+
+# GeoIP China
+GEOIP,CN,Direct
+
+FINAL,Final,dns-failed
+
+[Host]
+# Firebase Cloud Messaging
+mtalk.google.com = 108.177.125.188
+# Google Dl
+dl.google.com = server:119.29.29.29
+dl.l.google.com = server:119.29.29.29
+
+# Users who have unlocked the "module" function can use General.sgmodule to remove the "hostname = www.google.cn,api.abema.io" part of [URL Rewrite] and [MITM]
+# It is recommended to use General.sgmodule, other .sgmodules can be added as needed
+# Users who have not unlocked the "module" function should not delete the following content, refer to the instructions (https://github.com/DivineEngine/Profiles/tree/master/Surge) to update the relevant content using shortcut commands.
+[Header Rewrite]
+
+[URL Rewrite]
+# Redirect Google Search Service
+^(http|https):\/\/(www.)?(g|google)\.cn https://www.google.com 302
+
+# Redirect Google Maps Service
+^(http|https):\/\/(ditu|maps).google\.cn https://maps.google.com 302
+
+# Redirect HTTP to HTTPS
+^(http|https):\/\/(www.)?taobao\.com\/ https://taobao.com/ 302
+^(http|https):\/\/(www.)?jd\.com\/ https://www.jd.com/ 302
+^(http|https):\/\/(www.)?mi\.com\/ https://www.mi.com/ 302
+^(http|https):\/\/you\.163\.com\/ https://you.163.com/ 302
+^(http|https):\/\/(www.)?suning\.com\/ https://suning.com/ 302
+^(http|https):\/\/(www.)?yhd\.com\/ https://yhd.com/ 302
+
+# Redirect False to True
+# > IGN China to IGN Global
+^(http|https):\/\/(www.)?ign\.xn--fiqs8s\/ http://cn.ign.com/ccpref/us 302
+# > Fake Website Made By C&J Marketing
+^(http|https):\/\/(www.)?abbyychina\.com\/ https://www.abbyy.cn/ 302
+^(http|https):\/\/(www.)?bartender\.cc\/ https://www.macbartender.com/ 302
+^(http|https):\/\/(www.)?(betterzipcn|betterzip)\.(com|net)\/ https://macitbetter.com/ 302
+^(http|https):\/\/(www.)?beyondcompare\.cc\/ https://www.scootersoftware.com/ 302
+^(http|https):\/\/(www.)?bingdianhuanyuan\.cn\/ https://www.faronics.com/zh-hans/products/deep-freeze 302
+^(http|https):\/\/(www.)?chemdraw\.com\.cn\/ https://www.perkinelmer.com.cn/ 302
+^(http|https):\/\/(www.)?codesoftchina\.com\/ https://www.teklynx.com/ 302
+^(http|https):\/\/(www.)?coreldrawchina\.com\/ https://www.coreldraw.com/cn/ 302
+^(http|https):\/\/(www.)?crossoverchina\.com\/ https://www.codeweavers.com/ 302
+^(http|https):\/\/(www.)?dongmansoft\.com\/ https://www.udongman.cn/ 302
+^(http|https):\/\/(www.)?earmasterchina\.cn\/ https://www.earmaster.com/ 302
+^(http|https):\/\/(www.)?easyrecoverychina\.com\/ https://www.ontrack.com/ 302
+^(http|https):\/\/(www.)?ediuschina\.com\/ https://www.grassvalley.com/ 302
+^(http|https):\/\/(www.)?flstudiochina\.com\/ https://www.image-line.com/ 302
+^(http|https):\/\/(www.)?formysql\.com\/ https://www.navicat.com.cn/ 302
+^(http|https):\/\/(www.)?guitarpro\.cc\/ https://www.guitar-pro.com/ 302
+^(http|https):\/\/(www.)?huishenghuiying\.com\.cn\/ https://www.coreldraw.com/cn/ 302
+^(http|https):\/\/hypersnap\.mairuan\.com\/ https://www.hyperionics.com/ 302
+^(http|https):\/\/(www.)?iconworkshop\.cn\/ https://www.axialis.com/ 302
+^(http|https):\/\/(www.)?idmchina\.net\/ https://www.internetdownloadmanager.com/ 302
+^(http|https):\/\/(www.)?imindmap\.cc\/ https://www.ayoa.com/previously-imindmap/ 302
+^(http|https):\/\/(www.)?jihehuaban\.com\.cn\/ https://www.chartwellyorke.com/sketchpad/x24795.html 302
+^(http|https):\/\/hypersnap\.mairuan\.com\/ https://www.keyshot.com/ 302
+^(http|https):\/\/(www.)?kingdeecn\.cn\/ http://www.kingdee.com/ 302
+^(http|https):\/\/(www.)?logoshejishi\.com https://www.sothink.com/product/logo-design-software/ 302
+^(http|https):\/\/logoshejishi\.mairuan\.com\/ https://www.sothink.com/product/logo-design-software/ 302
+^(http|https):\/\/(www.)?luping\.net\.cn\/ https://www.techsmith.com/ 302
+^(http|https):\/\/(www.)?mathtype\.cn\/ https://www.dessci.com/ 302
+^(http|https):\/\/(www.)?mindmanager\.(cc|cn)\/ https://www.mindjet.com/cn/ 302
+^(http|https):\/\/(www.)?mindmapper\.cc\/ https://www.mindmapper.com/ 302
+^(http|https):\/\/(www.)?(mycleanmymac|xitongqingli)\.com\/ https://macpaw.com/ 302
+^(http|https):\/\/(www.)?nicelabel\.cc\/ https://www.nicelabel.com/zh/ 302
+^(http|https):\/\/(www.)?ntfsformac\.cc\/ https://www.tuxera.com/products/tuxera-ntfs-for-mac-cn/ 302
+^(http|https):\/\/(www.)?ntfsformac\.cn\/ https://china.paragon-software.com/home-mac/ntfs-for-mac/ 302
+^(http|https):\/\/(www.)?overturechina\.com\/ https://sonicscores.com/ 302
+^(http|https):\/\/(www.)?passwordrecovery\.cn\/ https://cn.elcomsoft.com/aopr.html 302
+^(http|https):\/\/(www.)?pdfexpert\.cc\/ https://pdfexpert.com/zh 302
+^(http|https):\/\/(www.)?photozoomchina\.com\/ https://www.benvista.com/ 302
+^(http|https):\/\/(www.)?shankejingling\.com\/ https://www.sothink.com/product/flashdecompiler/ 302
+^(http|https):\/\/cn\.ultraiso\.net\/ https://cn.ezbsystems.com/ultraiso/ 302
+^(http|https):\/\/(www.)?vegaschina\.cn\/ https://www.vegascreativesoftware.com/ 302
+^(http|https):\/\/(www.)?xshellcn\.com\/ https://www.netsarang.com/zh/xshell/ 302
+^(http|https):\/\/(www.)?yuanchengxiezuo\.com\/ https://www.teamviewer.com/ 302
+^(http|https):\/\/(www.)?zbrushcn.com/ https://pixologic.com/ 302
+
+# AbeamTV - api.abema.io
+^(http|https):\/\/api\.abema\.io\/v\d\/ip\/check - reject
+
+# Block Ads Start
+
+# Block Ads End
+
+[Script]
+
+[SSID Setting]
+
+[MITM]
+skip-server-cert-verify = true
+hostname = www.google.cn,api.abema.io
