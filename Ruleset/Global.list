@@ -9,7 +9,6 @@ DOMAIN,s3-ap-southeast-2.amazonaws.com
 DOMAIN,a248.e.akamai.net
 DOMAIN,a771.dscq.akamai.net
 # > Apple
-# > Apple
 DOMAIN-SUFFIX,aaplimg.com
 DOMAIN-SUFFIX,apple.co
 DOMAIN-SUFFIX,apple.com
